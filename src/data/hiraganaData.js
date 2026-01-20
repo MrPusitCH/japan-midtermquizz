@@ -23,6 +23,6 @@ export const hiraganaData = {
     { char: "き", reading: "ki" },
     { char: "て", reading: "te" },
     { char: "そ", reading: "so" },
-    { char: "ん", reading: "n" },
+    { char: "ん", reading: "n" }
   ]
 }

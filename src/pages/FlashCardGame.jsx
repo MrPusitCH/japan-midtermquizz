@@ -7,8 +7,11 @@ import ProgressBar from '../components/ProgressBar'
 import { hiraganaData } from '../data/hiraganaData'
 
 const FlashCardGame = ({ onBack }) => {
-  // รวมตัวอักษรทั้งหมดจาก 3 levels
-  const allCards = [...hiraganaData[1], ...hiraganaData[2], ...hiraganaData[3]]
+  console.log('FlashCardGame rendered!')
+  
+  // รวมตัวอักษรทั้งหมดจาก 2 levels
+  const allCards = [...hiraganaData[1], ...hiraganaData[2]]
+  console.log('All cards:', allCards.length)
   
   // สุ่มลำดับตัวอักษร
   const [cards] = useState(() => {
@@ -21,17 +24,17 @@ const FlashCardGame = ({ onBack }) => {
 
   const currentCard = cards[currentIndex]
   
-  const generateChoices = () => {
+  const generateChoices = (card) => {
     const wrongChoices = allCards
-      .filter(c => c.reading !== currentCard.reading)
+      .filter(c => c.reading !== card.reading)
       .map(c => c.reading)
       .sort(() => Math.random() - 0.5)
       .slice(0, 3)
     
-    return [...wrongChoices, currentCard.reading].sort(() => Math.random() - 0.5)
+    return [...wrongChoices, card.reading].sort(() => Math.random() - 0.5)
   }
 
-  const [choices, setChoices] = useState(generateChoices())
+  const [choices, setChoices] = useState(() => generateChoices(cards[0]))
 
   const handleAnswer = (isCorrect) => {
     if (isCorrect) {
@@ -49,7 +52,7 @@ const FlashCardGame = ({ onBack }) => {
 
   useEffect(() => {
     if (currentCard) {
-      setChoices(generateChoices())
+      setChoices(generateChoices(currentCard))
     }
   }, [currentIndex])
 
