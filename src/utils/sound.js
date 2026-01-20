@@ -4,15 +4,14 @@ import { Howl } from 'howler'
 let bgm = null
 let bgmPlaying = false
 
-// Initialize BGM with Japanese lo-fi style music
+// Initialize BGM with local file
 const initBGM = () => {
   if (!bgm) {
-    // Using a free Japanese-style lo-fi track
     bgm = new Howl({
-      src: ['https://cdn.pixabay.com/audio/2022/05/13/audio_2c4d750ac5.mp3'], // Peaceful Japanese music
+      src: ['/sounds/bgm.mp3'], // Local file from public folder
       loop: true,
       volume: 0.3,
-      html5: true, // Better for streaming
+      html5: true,
       preload: true
     })
   }
