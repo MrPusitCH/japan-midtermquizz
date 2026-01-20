@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  font-family: 'M PLUS Rounded 1c', 'Noto Sans JP', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(135deg, #FADADD 0%, #CDEFFF 50%, #FFF3B0 100%);
+  min-height: 100vh;
+}
+
+@layer utilities {
+  .cloud-bg {
+    background-image: 
+      radial-gradient(ellipse 200px 100px at 20% 30%, rgba(255, 255, 255, 0.5), transparent),
+      radial-gradient(ellipse 250px 120px at 80% 60%, rgba(255, 255, 255, 0.4), transparent),
+      radial-gradient(ellipse 180px 90px at 50% 80%, rgba(255, 255, 255, 0.3), transparent);
+  }
+  
+  .sakura-shadow {
+    box-shadow: 0 10px 40px rgba(250, 218, 221, 0.5);
+  }
+}
