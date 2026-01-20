@@ -5,14 +5,21 @@ let bgm = null
 let bgmPlaying = false
 
 // Initialize BGM with local file
-const initBGM = () => {
+export const initBGM = () => {
   if (!bgm) {
     bgm = new Howl({
-      src: ['/sounds/bgm.mp3'], // Local file from public folder
+      src: ['/sounds/bgm.mp3'], // Vite serves files from public folder at root
       loop: true,
       volume: 0.3,
       html5: true,
-      preload: true
+      preload: true,
+      onloaderror: (id, error) => {
+        console.error('Failed to load music:', error)
+        console.log('Trying to load from:', '/sounds/bgm.mp3')
+      },
+      onload: () => {
+        console.log('Music loaded successfully!')
+      }
     })
   }
   return bgm
