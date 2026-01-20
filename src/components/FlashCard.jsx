@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { playSound } from '../utils/sound'
+import Button from './Button'
 
 const FlashCard = ({ character, reading, choices, onAnswer }) => {
   const [flipped, setFlipped] = useState(false)
   const [answered, setAnswered] = useState(false)
   const [selected, setSelected] = useState(null)
+  const [tempSelected, setTempSelected] = useState(null)
 
   const handleFlip = () => {
     playSound('flip')
@@ -14,12 +16,29 @@ const FlashCard = ({ character, reading, choices, onAnswer }) => {
 
   const handleChoice = (choice, index) => {
     if (!answered) {
-      const isCorrect = choice === reading
+      playSound('click')
+      setTempSelected({ choice, index })
+    }
+  }
+
+  const handleConfirm = () => {
+    if (tempSelected && !answered) {
+      const isCorrect = tempSelected.choice === reading
       playSound(isCorrect ? 'correct' : 'wrong')
-      setSelected(index)
+      setSelected(tempSelected.index)
       setAnswered(true)
       onAnswer(isCorrect)
     }
+  }
+
+  const getChoiceStyle = (choice, index) => {
+    if (answered) {
+      if (choice === reading) return 'bg-green-200 border-green-400'
+      if (selected === index && choice !== reading) return 'bg-red-200 border-red-400'
+      return 'bg-gray-100 border-gray-300'
+    }
+    if (tempSelected && tempSelected.index === index) return 'bg-kawaii-blue border-purple-400 border-4'
+    return 'bg-white hover:bg-kawaii-cream border-purple-300'
   }
 
   return (
@@ -46,25 +65,39 @@ const FlashCard = ({ character, reading, choices, onAnswer }) => {
         </motion.div>
       </motion.div>
 
-      <div className="grid grid-cols-2 gap-3 w-full max-w-md">
-        {choices.map((choice, index) => (
-          <motion.button
-            key={index}
-            whileHover={!answered ? { scale: 1.05 } : {}}
-            whileTap={!answered ? { scale: 0.95 } : {}}
-            onClick={() => handleChoice(choice, index)}
-            disabled={answered}
-            className={`
-              p-4 rounded-xl font-bold text-lg border-3 transition-all
-              ${!answered ? 'bg-white hover:bg-kawaii-cream border-purple-300' : ''}
-              ${answered && choice === reading ? 'bg-green-200 border-green-400' : ''}
-              ${answered && selected === index && choice !== reading ? 'bg-red-200 border-red-400' : ''}
-              ${answered && choice !== reading && selected !== index ? 'bg-gray-100 border-gray-300' : ''}
-            `}
+      <div className="w-full max-w-md space-y-3">
+        <div className="grid grid-cols-2 gap-3">
+          {choices.map((choice, index) => (
+            <motion.button
+              key={index}
+              whileHover={!answered ? { scale: 1.05 } : {}}
+              whileTap={!answered ? { scale: 0.95 } : {}}
+              onClick={() => handleChoice(choice, index)}
+              disabled={answered}
+              className={`
+                p-4 rounded-xl font-bold text-lg border-3 transition-all
+                ${getChoiceStyle(choice, index)}
+                ${!answered ? 'cursor-pointer' : 'cursor-not-allowed'}
+              `}
+            >
+              {choice}
+            </motion.button>
+          ))}
+        </div>
+
+        {!answered && tempSelected && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
           >
-            {choice}
-          </motion.button>
-        ))}
+            <Button 
+              onClick={handleConfirm}
+              className="w-full"
+            >
+              ✓ ยืนยันคำตอบ
+            </Button>
+          </motion.div>
+        )}
       </div>
     </div>
   )

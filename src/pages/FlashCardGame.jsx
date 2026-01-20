@@ -91,7 +91,7 @@ const FlashCardGame = ({ level, onBack }) => {
 
         <div className="mt-6">
           <Button onClick={onBack} variant="secondary" className="w-full">
-            ← กลับ
+            ← ย้อนกลับ
           </Button>
         </div>
       </Card>

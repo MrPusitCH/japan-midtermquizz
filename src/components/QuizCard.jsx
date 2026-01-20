@@ -1,20 +1,34 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { playSound } from '../utils/sound'
+import Button from './Button'
 
 const QuizCard = ({ question, choices, onAnswer, answered, correctIndex, selectedIndex }) => {
+  const [tempSelected, setTempSelected] = useState(null)
+
   const handleChoice = (index) => {
     if (!answered) {
-      const isCorrect = index === correctIndex
+      playSound('click')
+      setTempSelected(index)
+    }
+  }
+
+  const handleConfirm = () => {
+    if (tempSelected !== null && !answered) {
+      const isCorrect = tempSelected === correctIndex
       playSound(isCorrect ? 'correct' : 'wrong')
-      onAnswer(index, isCorrect)
+      onAnswer(tempSelected, isCorrect)
     }
   }
 
   const getChoiceStyle = (index) => {
-    if (!answered) return 'bg-white hover:bg-kawaii-blue border-kawaii-blue'
-    if (index === correctIndex) return 'bg-green-200 border-green-400'
-    if (index === selectedIndex && index !== correctIndex) return 'bg-red-200 border-red-400'
-    return 'bg-gray-100 border-gray-300'
+    if (answered) {
+      if (index === correctIndex) return 'bg-green-200 border-green-400'
+      if (index === selectedIndex && index !== correctIndex) return 'bg-red-200 border-red-400'
+      return 'bg-gray-100 border-gray-300'
+    }
+    if (tempSelected === index) return 'bg-kawaii-blue border-purple-400 border-4'
+    return 'bg-white hover:bg-kawaii-cream border-kawaii-blue'
   }
 
   return (
@@ -28,7 +42,7 @@ const QuizCard = ({ question, choices, onAnswer, answered, correctIndex, selecte
         <h3 className="text-2xl font-bold text-center text-purple-700" dangerouslySetInnerHTML={{ __html: question }} />
       </div>
 
-      <div className="space-y-3">
+      <div className="space-y-3 mb-4">
         {choices.map((choice, index) => (
           <motion.button
             key={index}
@@ -46,6 +60,20 @@ const QuizCard = ({ question, choices, onAnswer, answered, correctIndex, selecte
           </motion.button>
         ))}
       </div>
+
+      {!answered && tempSelected !== null && (
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+        >
+          <Button 
+            onClick={handleConfirm}
+            className="w-full"
+          >
+            ✓ ยืนยันคำตอบ
+          </Button>
+        </motion.div>
+      )}
     </motion.div>
   )
 }

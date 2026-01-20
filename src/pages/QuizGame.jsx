@@ -90,11 +90,14 @@ const QuizGame = ({ week, onBack }) => {
             <Button onClick={handleNext} className="w-full">
               {currentIndex < questions.length - 1 ? 'ข้อต่อไป →' : 'ดูผลลัพธ์'}
             </Button>
-            <Button onClick={onBack} variant="secondary" className="w-full">
-              ← กลับ
-            </Button>
           </motion.div>
         )}
+
+        <div className="mt-3">
+          <Button onClick={onBack} variant="secondary" className="w-full">
+            ← ย้อนกลับ
+          </Button>
+        </div>
       </Card>
     </div>
   )
