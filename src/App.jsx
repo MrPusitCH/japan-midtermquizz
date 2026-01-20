@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import Home from './pages/Home'
 import WeekSelect from './pages/WeekSelect'
 import QuizGame from './pages/QuizGame'
+import HiraganaSelect from './pages/HiraganaSelect'
 import FlashCardGame from './pages/FlashCardGame'
 import SoundToggle from './components/SoundToggle'
 import { initBGM } from './utils/sound'
@@ -44,10 +45,8 @@ function App() {
     switch (currentPage) {
       case 'home':
         return <Home onNavigate={navigateTo} />
-      case 'weekSelect':
-        return <WeekSelect onNavigate={navigateTo} onBack={() => setCurrentPage('home')} />
       case 'quiz':
-        return <QuizGame week={selectedWeek} onBack={() => setCurrentPage('weekSelect')} />
+        return <QuizGame onBack={() => setCurrentPage('home')} />
       case 'flashcard':
         return <FlashCardGame onBack={() => setCurrentPage('home')} />
       default:

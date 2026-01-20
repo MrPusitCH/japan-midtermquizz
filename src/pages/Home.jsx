@@ -34,7 +34,7 @@ const Home = ({ onNavigate }) => {
 
         <div className="space-y-4">
           <Button 
-            onClick={() => onNavigate('weekSelect')}
+            onClick={() => onNavigate('quiz')}
             className="w-full text-xl"
           >
             📝 Week Quiz Mode

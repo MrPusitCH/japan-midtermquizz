@@ -6,8 +6,22 @@ import QuizCard from '../components/QuizCard'
 import ProgressBar from '../components/ProgressBar'
 import { weekQuizData } from '../data/quizData'
 
-const QuizGame = ({ week, onBack }) => {
-  const [questions] = useState(weekQuizData[week] || [])
+const QuizGame = ({ onBack }) => {
+  // รวมคำถามจากทุก Week
+  const allQuestions = [
+    ...weekQuizData[1],
+    ...weekQuizData[2],
+    ...weekQuizData[3],
+    ...weekQuizData[4],
+    ...weekQuizData[5],
+    ...weekQuizData[8]
+  ]
+
+  // สุ่มลำดับคำถาม
+  const [questions] = useState(() => {
+    return [...allQuestions].sort(() => Math.random() - 0.5)
+  })
+
   const [currentIndex, setCurrentIndex] = useState(0)
   const [score, setScore] = useState(0)
   const [answered, setAnswered] = useState(false)
@@ -52,8 +66,11 @@ const QuizGame = ({ week, onBack }) => {
             <p className="text-4xl font-bold text-pink-600 mb-2">
               {score}/{questions.length}
             </p>
-            <p className="text-3xl text-purple-600 mb-8">
+            <p className="text-3xl text-purple-600 mb-4">
               {percentage}% - {percentage >= 80 ? 'เก่งมาก!' : percentage >= 60 ? 'ดีมาก!' : 'ลองใหม่อีกครั้งนะ!'}
+            </p>
+            <p className="text-lg text-gray-600 mb-8">
+              ทำครบทั้งหมด {questions.length} ข้อ จากทุก Week!
             </p>
             <Button onClick={onBack} className="w-full">
               กลับเมนูหลัก
