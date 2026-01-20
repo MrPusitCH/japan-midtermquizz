@@ -16,8 +16,9 @@ export default {
         }
       },
       fontFamily: {
-        'japanese': ['"M PLUS Rounded 1c"', 'sans-serif'],
-        'noto': ['"Noto Sans JP"', 'sans-serif'],
+        'japanese': ['"Noto Sans JP"', '"Hiragino Kaku Gothic ProN"', 'Meiryo', 'sans-serif'],
+        'rounded': ['"M PLUS Rounded 1c"', '"Noto Sans JP"', 'sans-serif'],
+        'sans': ['"Noto Sans JP"', '"Hiragino Kaku Gothic ProN"', 'Meiryo', '"M PLUS Rounded 1c"', 'sans-serif'],
       },
     },
   },

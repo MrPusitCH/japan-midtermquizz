@@ -40,7 +40,7 @@ const Home = ({ onNavigate }) => {
             📝 Week Quiz Mode
           </Button>
           <Button 
-            onClick={() => onNavigate('hiraganaSelect')}
+            onClick={() => onNavigate('flashcard')}
             variant="secondary"
             className="w-full text-xl"
           >

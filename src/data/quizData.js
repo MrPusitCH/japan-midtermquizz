@@ -17,7 +17,7 @@ export const weekQuizData = {
     },
     {
       question: 'Hiragana สำหรับเสียง "i"',
-      choices: ["A. に (ni)", "B. い (i)", "C. こ (ko)", "D. た (ta)"],
+      choices: ["A. に ", "B. い ", "C. こ ", "D. た "],
       correct: 1
     }
   ],

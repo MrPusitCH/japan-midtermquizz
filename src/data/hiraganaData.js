@@ -24,23 +24,5 @@ export const hiraganaData = {
     { char: "て", reading: "te" },
     { char: "そ", reading: "so" },
     { char: "ん", reading: "n" },
-    { char: "と", reading: "to" },
-    { char: "を", reading: "wo / o" }
-  ],
-  3: [
-    { char: "は", reading: "ha / wa" },
-    { char: "ほ", reading: "ho" },
-    { char: "ま", reading: "ma" },
-    { char: "よ", reading: "yo" },
-    { char: "ち", reading: "chi" },
-    { char: "ろ", reading: "ro" },
-    { char: "る", reading: "ru" },
-    { char: "の", reading: "no" },
-    { char: "め", reading: "me" },
-    { char: "ぬ", reading: "nu" },
-    { char: "た", reading: "ta" },
-    { char: "な", reading: "na" },
-    { char: "あ", reading: "a" },
-    { char: "お", reading: "o" }
   ]
 }

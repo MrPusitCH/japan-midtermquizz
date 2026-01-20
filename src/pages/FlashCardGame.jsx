@@ -6,8 +6,15 @@ import FlashCard from '../components/FlashCard'
 import ProgressBar from '../components/ProgressBar'
 import { hiraganaData } from '../data/hiraganaData'
 
-const FlashCardGame = ({ level, onBack }) => {
-  const [cards] = useState(hiraganaData[level] || [])
+const FlashCardGame = ({ onBack }) => {
+  // รวมตัวอักษรทั้งหมดจาก 3 levels
+  const allCards = [...hiraganaData[1], ...hiraganaData[2], ...hiraganaData[3]]
+  
+  // สุ่มลำดับตัวอักษร
+  const [cards] = useState(() => {
+    return [...allCards].sort(() => Math.random() - 0.5)
+  })
+  
   const [currentIndex, setCurrentIndex] = useState(0)
   const [score, setScore] = useState(0)
   const [showResult, setShowResult] = useState(false)
@@ -15,7 +22,7 @@ const FlashCardGame = ({ level, onBack }) => {
   const currentCard = cards[currentIndex]
   
   const generateChoices = () => {
-    const wrongChoices = cards
+    const wrongChoices = allCards
       .filter(c => c.reading !== currentCard.reading)
       .map(c => c.reading)
       .sort(() => Math.random() - 0.5)
@@ -64,8 +71,11 @@ const FlashCardGame = ({ level, onBack }) => {
             <p className="text-4xl font-bold text-pink-600 mb-2">
               {score}/{cards.length}
             </p>
-            <p className="text-3xl text-purple-600 mb-8">
+            <p className="text-3xl text-purple-600 mb-4">
               {percentage}% - {percentage >= 80 ? 'เก่งมาก!' : percentage >= 60 ? 'ดีมาก!' : 'ลองใหม่อีกครั้งนะ!'}
+            </p>
+            <p className="text-lg text-gray-600 mb-8">
+              ทำครบทั้งหมด {cards.length} ตัวอักษร!
             </p>
             <Button onClick={onBack} className="w-full">
               กลับเมนูหลัก
