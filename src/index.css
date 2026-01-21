@@ -44,9 +44,9 @@ p, span, div, button {
 
 /* Force Japanese font for large characters (Flash Cards) */
 .text-9xl, .text-8xl, .text-7xl, .text-6xl, .text-5xl {
-  font-family: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif !important;
-  font-weight: 700 !important;
-  font-feature-settings: "palt" 1, "jp04" 1;
+  font-family: 'Hiragino Kaku Gothic ProN', 'Yu Gothic', 'Meiryo', 'MS Gothic', sans-serif !important;
+  font-weight: 400 !important;
+  font-style: normal !important;
 }
 
 /* Ensure Japanese characters always use Japanese fonts */
