@@ -4,9 +4,11 @@ import Home from './pages/Home'
 import QuizGame from './pages/QuizGame'
 import FlashCardGame from './pages/FlashCardGame'
 import SoundToggle from './components/SoundToggle'
+import LoadingScreen from './components/LoadingScreen'
 import { initBGM } from './utils/sound'
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true)
   const [currentPage, setCurrentPage] = useState('home')
   const [selectedWeek, setSelectedWeek] = useState(null)
   const [selectedLevel, setSelectedLevel] = useState(null)
@@ -19,6 +21,10 @@ function App() {
       setShowMusicPrompt(false)
     }
   }, [])
+
+  const handleLoadComplete = () => {
+    setIsLoading(false)
+  }
 
   const handleMusicChoice = (playMusic) => {
     localStorage.setItem('musicPromptSeen', 'true')
@@ -57,7 +63,13 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen cloud-bg relative overflow-hidden">
+    <>
+      <AnimatePresence>
+        {isLoading && <LoadingScreen onLoadComplete={handleLoadComplete} />}
+      </AnimatePresence>
+
+      {!isLoading && (
+        <div className="min-h-screen cloud-bg relative overflow-hidden">
       {/* Music Prompt Modal */}
       <AnimatePresence>
         {showMusicPrompt && (
@@ -140,7 +152,9 @@ function App() {
           {renderPage()}
         </motion.div>
       </AnimatePresence>
-    </div>
+        </div>
+      )}
+    </>
   )
 }
 
