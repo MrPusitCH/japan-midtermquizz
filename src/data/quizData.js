@@ -1,7 +1,7 @@
 export const weekQuizData = { 
   1: [
     {
-      question: "はるさんは（　）ですか。<br>haru san wa ( ) desuka",
+      question: "はるさんはうすは（　）ですか。<br>Haru san hausu wa ( ) desu ka<br>[บ้านของคุณฮารุอยู่ที่ไหนครับ]",
       choices: ["A. だれ / dare", "B. どこ / doko", "C. もの / mono", "D. どの / dono"],
       correct: 1
     },
