@@ -60,6 +60,10 @@ const FlashCard = ({ character, reading, choices, onAnswer }) => {
               <img src="/images/ri.jpg" alt="り" className="w-48 h-48 object-contain" />
             ) : character === "こ" ? (
               <img src="/images/ko.jpg" alt="こ" className="w-48 h-48 object-contain" />
+            ) : character === "き" ? (
+              <img src="/images/ki.jpg" alt="き" className="w-48 h-48 object-contain" />
+            ) : character === "さ" ? (
+              <img src="/images/sa.jpg" alt="さ" className="w-48 h-48 object-contain" />
             ) : (
               <span className="text-9xl" style={{ 
                 fontFamily: "'Hiragino Kaku Gothic ProN', 'Yu Gothic', 'Meiryo', 'MS Gothic', sans-serif", 
