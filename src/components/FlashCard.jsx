@@ -56,11 +56,15 @@ const FlashCard = ({ character, reading, choices, onAnswer }) => {
         >
           <div className="absolute w-full h-full bg-gradient-to-br from-kawaii-pink to-kawaii-purple rounded-3xl flex items-center justify-center border-4 border-white sakura-shadow"
             style={{ backfaceVisibility: 'hidden' }}>
-            <span className="text-9xl" style={{ 
-              fontFamily: "'Hiragino Kaku Gothic ProN', 'Yu Gothic', 'Meiryo', 'MS Gothic', sans-serif", 
-              fontWeight: 400,
-              fontStyle: 'normal'
-            }}>{character}</span>
+            {character === "り" ? (
+              <img src="/images/ri.jpg" alt="り" className="w-48 h-48 object-contain" />
+            ) : (
+              <span className="text-9xl" style={{ 
+                fontFamily: "'Hiragino Kaku Gothic ProN', 'Yu Gothic', 'Meiryo', 'MS Gothic', sans-serif", 
+                fontWeight: 400,
+                fontStyle: 'normal'
+              }}>{character}</span>
+            )}
           </div>
           <div className="absolute w-full h-full bg-gradient-to-br from-kawaii-blue to-kawaii-yellow rounded-3xl flex items-center justify-center border-4 border-white sakura-shadow"
             style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}>
