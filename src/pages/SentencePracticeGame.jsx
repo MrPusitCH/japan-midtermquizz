@@ -8,13 +8,16 @@ import { playSound } from '../utils/sound'
 import { animateCorrectAnswer, animateWrongAnswer } from '../utils/anime-effects'
 
 const SentencePracticeGame = ({ onNavigate }) => {
+  const [questions] = useState(() => {
+    return [...sentenceData].sort(() => Math.random() - 0.5)
+  })
   const [currentIndex, setCurrentIndex] = useState(0)
   const [selectedOption, setSelectedOption] = useState(null)
   const [answered, setAnswered] = useState(false)
   const [score, setScore] = useState(0)
   const [showResult, setShowResult] = useState(false)
 
-  const currentQuestion = sentenceData[currentIndex]
+  const currentQuestion = questions[currentIndex]
 
   const handleOptionClick = (option, index) => {
     if (answered) return
@@ -46,7 +49,7 @@ const SentencePracticeGame = ({ onNavigate }) => {
     }
 
     setTimeout(() => {
-      if (currentIndex < sentenceData.length - 1) {
+      if (currentIndex < questions.length - 1) {
         setCurrentIndex(currentIndex + 1)
         setSelectedOption(null)
         setAnswered(false)
@@ -73,7 +76,7 @@ const SentencePracticeGame = ({ onNavigate }) => {
     return 'bg-gray-100 border-gray-300'
   }
 
-  const percentage = Math.round((score / sentenceData.length) * 100)
+  const percentage = Math.round((score / questions.length) * 100)
 
   if (showResult) {
     return (
@@ -89,7 +92,7 @@ const SentencePracticeGame = ({ onNavigate }) => {
               {percentage >= 80 ? '🌟' : percentage >= 60 ? '👍' : '💪'}
             </div>
             <p className="text-4xl font-bold text-pink-600 mb-2">
-              {score}/{sentenceData.length}
+              {score}/{questions.length}
             </p>
             <p className="text-3xl text-purple-600 mb-8">
               {percentage}% - {percentage >= 80 ? 'เก่งมาก!' : percentage >= 60 ? 'ดีมาก!' : 'ลองใหม่อีกครั้งนะ!'}
@@ -111,11 +114,11 @@ const SentencePracticeGame = ({ onNavigate }) => {
             ← กลับหน้าหลัก
           </Button>
           <div className="text-purple-600 font-bold">
-            คะแนน: {score}/{sentenceData.length}
+            คะแนน: {score}/{questions.length}
           </div>
         </div>
 
-        <ProgressBar current={currentIndex + 1} total={sentenceData.length} />
+        <ProgressBar current={currentIndex + 1} total={questions.length} />
 
         <motion.div
           key={currentIndex}

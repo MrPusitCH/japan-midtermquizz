@@ -6,6 +6,9 @@ import ProgressBar from '../components/ProgressBar'
 import { rearrangeData } from '../data/rearrangeData'
 
 const RearrangeGame = ({ onNavigate }) => {
+  const [questions] = useState(() => {
+    return [...rearrangeData].sort(() => Math.random() - 0.5)
+  })
   const [currentIndex, setCurrentIndex] = useState(0)
   const [selectedWords, setSelectedWords] = useState([])
   const [availableWords, setAvailableWords] = useState([])
@@ -14,10 +17,10 @@ const RearrangeGame = ({ onNavigate }) => {
   const [score, setScore] = useState(0)
 
   useEffect(() => {
-    setAvailableWords([...rearrangeData[currentIndex].shuffled_words])
+    setAvailableWords([...questions[currentIndex].shuffled_words])
     setSelectedWords([])
     setShowResult(false)
-  }, [currentIndex])
+  }, [currentIndex, questions])
 
   const handleWordClick = (word, fromAvailable = true) => {
     if (fromAvailable) {
@@ -31,22 +34,22 @@ const RearrangeGame = ({ onNavigate }) => {
 
   const handleCheck = () => {
     const userAnswer = selectedWords.join(' ')
-    const correct = userAnswer === rearrangeData[currentIndex].correct_roomaji
+    const correct = userAnswer === questions[currentIndex].correct_roomaji
     setIsCorrect(correct)
     setShowResult(true)
     if (correct) setScore(score + 1)
   }
 
   const handleNext = () => {
-    if (currentIndex < rearrangeData.length - 1) {
+    if (currentIndex < questions.length - 1) {
       setCurrentIndex(currentIndex + 1)
     } else {
-      alert(`เกมจบแล้ว! คะแนน: ${score + (isCorrect ? 1 : 0)}/${rearrangeData.length}`)
+      alert(`เกมจบแล้ว! คะแนน: ${score + (isCorrect ? 1 : 0)}/${questions.length}`)
       onNavigate('home')
     }
   }
 
-  const currentQuestion = rearrangeData[currentIndex]
+  const currentQuestion = questions[currentIndex]
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
@@ -56,11 +59,11 @@ const RearrangeGame = ({ onNavigate }) => {
             ← กลับหน้าหลัก
           </Button>
           <div className="text-purple-600 font-bold">
-            คะแนน: {score}/{rearrangeData.length}
+            คะแนน: {score}/{questions.length}
           </div>
         </div>
 
-        <ProgressBar current={currentIndex + 1} total={rearrangeData.length} />
+        <ProgressBar current={currentIndex + 1} total={questions.length} />
 
         <motion.div
           key={currentIndex}
@@ -142,7 +145,7 @@ const RearrangeGame = ({ onNavigate }) => {
               </Button>
             ) : (
               <Button onClick={handleNext} className="flex-1">
-                {currentIndex < rearrangeData.length - 1 ? 'ข้อถัดไป →' : 'จบเกม'}
+                {currentIndex < questions.length - 1 ? 'ข้อถัดไป →' : 'จบเกม'}
               </Button>
             )}
           </div>
