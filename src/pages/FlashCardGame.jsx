@@ -18,6 +18,7 @@ const FlashCardGame = ({ onBack }) => {
     return [...allCards].sort(() => Math.random() - 0.5)
   })
   
+  const [difficulty, setDifficulty] = useState(null) // null = not selected, 'normal' or 'hard'
   const [currentIndex, setCurrentIndex] = useState(0)
   const [score, setScore] = useState(0)
   const [showResult, setShowResult] = useState(false)
@@ -57,6 +58,52 @@ const FlashCardGame = ({ onBack }) => {
   }, [currentIndex])
 
   const percentage = Math.round((score / cards.length) * 100)
+
+  // Difficulty selection screen
+  if (!difficulty) {
+    return (
+      <div className="min-h-screen flex items-center justify-center p-4">
+        <Card className="max-w-2xl w-full text-center">
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ type: 'spring' }}
+          >
+            <h2 className="text-5xl font-black text-purple-700 mb-6">🎯 เลือกระดับความยาก</h2>
+            <p className="text-xl text-gray-600 mb-8">Choose Difficulty Level</p>
+            
+            <div className="space-y-4 mb-8">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setDifficulty('normal')}
+                className="w-full p-6 bg-gradient-to-r from-green-400 to-blue-400 text-white rounded-2xl shadow-lg"
+              >
+                <div className="text-3xl mb-2">😊 Normal Mode</div>
+                <div className="text-lg">แสดงตัวเลือก 4 ข้อ</div>
+                <div className="text-sm opacity-90">Show 4 multiple choices</div>
+              </motion.button>
+              
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setDifficulty('hard')}
+                className="w-full p-6 bg-gradient-to-r from-red-400 to-pink-400 text-white rounded-2xl shadow-lg"
+              >
+                <div className="text-3xl mb-2">🔥 Hard Mode</div>
+                <div className="text-lg">พิมพ์คำตอบเอง</div>
+                <div className="text-sm opacity-90">Type the answer manually</div>
+              </motion.button>
+            </div>
+            
+            <Button onClick={onBack} variant="secondary" className="w-full">
+              ← ย้อนกลับ
+            </Button>
+          </motion.div>
+        </Card>
+      </div>
+    )
+  }
 
   if (showResult) {
     return (
@@ -100,6 +147,7 @@ const FlashCardGame = ({ onBack }) => {
           reading={currentCard.reading}
           choices={choices}
           onAnswer={handleAnswer}
+          difficulty={difficulty}
         />
 
         <div className="mt-6">
