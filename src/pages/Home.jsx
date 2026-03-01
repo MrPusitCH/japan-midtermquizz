@@ -46,6 +46,20 @@ const Home = ({ onNavigate }) => {
           >
             🔤 Hiragana Flash Card Mode
           </Button>
+          <Button 
+            onClick={() => onNavigate('rearrange')}
+            variant="secondary"
+            className="w-full text-xl"
+          >
+            🔀 Rearrange Roomaji Mode
+          </Button>
+          <Button 
+            onClick={() => onNavigate('sentence')}
+            variant="secondary"
+            className="w-full text-xl"
+          >
+            📖 Sentence Practice Mode
+          </Button>
         </div>
 
         <motion.div

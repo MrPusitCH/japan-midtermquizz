@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import Home from './pages/Home'
 import QuizGame from './pages/QuizGame'
 import FlashCardGame from './pages/FlashCardGame'
+import RearrangeGame from './pages/RearrangeGame'
+import SentencePracticeGame from './pages/SentencePracticeGame'
 import SoundToggle from './components/SoundToggle'
 import LoadingScreen from './components/LoadingScreen'
 import { initBGM } from './utils/sound'
@@ -57,6 +59,10 @@ function App() {
       case 'flashcard':
         console.log('Rendering FlashCardGame')
         return <FlashCardGame onBack={() => setCurrentPage('home')} />
+      case 'rearrange':
+        return <RearrangeGame onNavigate={navigateTo} />
+      case 'sentence':
+        return <SentencePracticeGame onNavigate={navigateTo} />
       default:
         return <Home onNavigate={navigateTo} />
     }

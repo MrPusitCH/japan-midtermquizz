@@ -70,3 +70,44 @@ p, span, div, button {
     font-family: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif !important;
   }
 }
+
+/* Anime.js Animation Classes */
+.anime-card-enter {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.anime-button {
+  transition: transform 0.1s ease;
+}
+
+.anime-button:hover {
+  transform: translateY(-2px);
+}
+
+.anime-correct {
+  animation: correctPulse 0.6s ease;
+}
+
+@keyframes correctPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.anime-wrong {
+  animation: wrongShake 0.5s ease;
+}
+
+@keyframes wrongShake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  75% { transform: translateX(10px); }
+}
+
+.anime-glow-green {
+  box-shadow: 0 0 20px rgba(34, 197, 94, 0.6), 0 0 40px rgba(34, 197, 94, 0.4);
+}
+
+.anime-glow-red {
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.6), 0 0 40px rgba(239, 68, 68, 0.4);
+}

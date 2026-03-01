@@ -9,8 +9,8 @@ import { hiraganaData } from '../data/hiraganaData'
 const FlashCardGame = ({ onBack }) => {
   console.log('FlashCardGame rendered!')
   
-  // รวมตัวอักษรทั้งหมดจาก 2 levels
-  const allCards = [...hiraganaData[1], ...hiraganaData[2]]
+  // รวมตัวอักษรทั้งหมดจาก 3 levels
+  const allCards = [...hiraganaData[1], ...hiraganaData[2], ...hiraganaData[3]]
   console.log('All cards:', allCards.length)
   
   // สุ่มลำดับตัวอักษร
