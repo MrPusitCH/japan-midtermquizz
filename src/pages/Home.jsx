@@ -37,7 +37,7 @@ const Home = ({ onNavigate }) => {
             onClick={() => onNavigate('lessonSelect')}
             className="w-full text-xl"
           >
-            📚 Lesson Quiz Mode
+            📝 Midterm Exam
           </Button>
           {/* <Button 
             onClick={() => onNavigate('quiz')}
