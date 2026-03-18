@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import Card from '../components/Card'
 import Button from '../components/Button'
 import ProgressBar from '../components/ProgressBar'
-import { generateBlanks, tokenizeRomaji, shuffleArray } from '../utils/lessonParser'
+import { generateMultipleChoiceBlanks, getAllWordsFromLesson, tokenizeRomaji, shuffleArray } from '../utils/lessonParser'
 import { playSound } from '../utils/sound'
 import { animateCorrectAnswer, animateWrongAnswer } from '../utils/anime-effects'
 
@@ -14,8 +14,9 @@ const LessonQuiz = ({ onNavigate, selectedLesson, selectedMode }) => {
   const [answered, setAnswered] = useState(false)
   
   // Easy mode states
-  const [userAnswers, setUserAnswers] = useState([])
+  const [selectedAnswers, setSelectedAnswers] = useState([])
   const [blankData, setBlankData] = useState(null)
+  const [allLessonWords, setAllLessonWords] = useState([])
   
   // Hard mode states
   const [selectedTokens, setSelectedTokens] = useState([])
@@ -25,11 +26,18 @@ const LessonQuiz = ({ onNavigate, selectedLesson, selectedMode }) => {
   const currentSentence = sentences[currentIndex]
 
   useEffect(() => {
+    if (selectedLesson && selectedMode === 'easy') {
+      const words = getAllWordsFromLesson(selectedLesson.sentences)
+      setAllLessonWords(words)
+    }
+  }, [selectedLesson, selectedMode])
+
+  useEffect(() => {
     if (currentSentence) {
       if (selectedMode === 'easy') {
-        const data = generateBlanks(currentSentence.romaji, 2)
+        const data = generateMultipleChoiceBlanks(currentSentence.romaji, allLessonWords, 2)
         setBlankData(data)
-        setUserAnswers(new Array(data.answers.length).fill(''))
+        setSelectedAnswers(new Array(data.blanks.length).fill(null))
       } else {
         const tokens = tokenizeRomaji(currentSentence.romaji)
         setAvailableTokens(shuffleArray(tokens))
@@ -37,16 +45,16 @@ const LessonQuiz = ({ onNavigate, selectedLesson, selectedMode }) => {
       }
       setAnswered(false)
     }
-  }, [currentIndex, currentSentence, selectedMode])
+  }, [currentIndex, currentSentence, selectedMode, allLessonWords])
 
   const handleEasyModeSubmit = () => {
     if (answered) return
     
-    const allFilled = userAnswers.every(answer => answer.trim() !== '')
-    if (!allFilled) return
+    const allSelected = selectedAnswers.every(answer => answer !== null)
+    if (!allSelected) return
 
-    const isCorrect = userAnswers.every((answer, index) => 
-      answer.trim().toLowerCase() === blankData.answers[index].toLowerCase()
+    const isCorrect = selectedAnswers.every((answer, index) => 
+      answer === blankData.blanks[index].correctAnswer
     )
 
     playSound(isCorrect ? 'correct' : 'wrong')
@@ -54,6 +62,30 @@ const LessonQuiz = ({ onNavigate, selectedLesson, selectedMode }) => {
     if (isCorrect) setScore(score + 1)
 
     setTimeout(() => handleNext(), 2000)
+  }
+
+  const handleSelectAnswer = (blankIndex, choice) => {
+    if (answered) return
+    const newAnswers = [...selectedAnswers]
+    newAnswers[blankIndex] = choice
+    setSelectedAnswers(newAnswers)
+  }
+
+  const getChoiceStyle = (blankIndex, choice) => {
+    if (!answered) {
+      return selectedAnswers[blankIndex] === choice
+        ? 'bg-purple-200 border-purple-500 border-4'
+        : 'bg-white hover:bg-purple-50 border-purple-300'
+    }
+
+    const blank = blankData.blanks[blankIndex]
+    if (choice === blank.correctAnswer) {
+      return 'bg-green-200 border-green-500'
+    }
+    if (selectedAnswers[blankIndex] === choice && choice !== blank.correctAnswer) {
+      return 'bg-red-200 border-red-500'
+    }
+    return 'bg-gray-100 border-gray-300'
   }
 
   const handleHardModeSubmit = () => {
@@ -104,7 +136,8 @@ const LessonQuiz = ({ onNavigate, selectedLesson, selectedMode }) => {
 
   const handleShowAnswer = () => {
     if (selectedMode === 'easy') {
-      setUserAnswers(blankData.answers)
+      const correctAnswers = blankData.blanks.map(blank => blank.correctAnswer)
+      setSelectedAnswers(correctAnswers)
     } else {
       const tokens = tokenizeRomaji(currentSentence.romaji)
       setSelectedTokens(tokens)
@@ -186,28 +219,38 @@ const LessonQuiz = ({ onNavigate, selectedLesson, selectedMode }) => {
           </div>
 
           {selectedMode === 'easy' ? (
-            <div className="space-y-4">
+            <div className="space-y-6">
               <div className="bg-white p-6 rounded-xl border-3 border-purple-300">
-                <p className="text-2xl font-mono text-gray-800 mb-4 whitespace-pre-wrap">
+                <p className="text-2xl font-mono text-gray-800 mb-6 whitespace-pre-wrap leading-relaxed">
                   {blankData?.blankedSentence}
                 </p>
-                <div className="space-y-3">
-                  {blankData?.answers.map((_, index) => (
-                    <input
-                      key={index}
-                      type="text"
-                      value={userAnswers[index] || ''}
-                      onChange={(e) => {
-                        const newAnswers = [...userAnswers]
-                        newAnswers[index] = e.target.value
-                        setUserAnswers(newAnswers)
-                      }}
-                      disabled={answered}
-                      placeholder={`Blank ${index + 1}`}
-                      className="w-full p-3 border-2 border-purple-300 rounded-lg focus:border-purple-500 focus:outline-none disabled:bg-gray-100"
-                    />
-                  ))}
-                </div>
+                
+                {blankData?.blanks.map((blank, blankIndex) => (
+                  <div key={blankIndex} className="mb-6">
+                    <p className="text-lg font-bold text-purple-700 mb-3">
+                      Blank [{blank.blankNumber}]:
+                    </p>
+                    <div className="grid grid-cols-2 gap-3">
+                      {blank.choices.map((choice, choiceIndex) => (
+                        <motion.button
+                          key={choiceIndex}
+                          data-choice={`${blankIndex}-${choiceIndex}`}
+                          whileHover={!answered ? { scale: 1.05 } : {}}
+                          whileTap={!answered ? { scale: 0.95 } : {}}
+                          onClick={() => handleSelectAnswer(blankIndex, choice)}
+                          disabled={answered}
+                          className={`
+                            p-4 rounded-xl border-3 transition-all font-mono text-lg
+                            ${getChoiceStyle(blankIndex, choice)}
+                            ${!answered ? 'cursor-pointer' : 'cursor-not-allowed'}
+                          `}
+                        >
+                          {choice}
+                        </motion.button>
+                      ))}
+                    </div>
+                  </div>
+                ))}
               </div>
 
               {answered && (
@@ -215,26 +258,39 @@ const LessonQuiz = ({ onNavigate, selectedLesson, selectedMode }) => {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   className={`p-4 rounded-xl ${
-                    userAnswers.every((answer, index) => 
-                      answer.trim().toLowerCase() === blankData.answers[index].toLowerCase()
+                    selectedAnswers.every((answer, index) => 
+                      answer === blankData.blanks[index].correctAnswer
                     ) ? 'bg-green-100 border-2 border-green-500' : 'bg-red-100 border-2 border-red-500'
                   }`}
                 >
                   <p className="font-bold text-lg mb-2">
-                    {userAnswers.every((answer, index) => 
-                      answer.trim().toLowerCase() === blankData.answers[index].toLowerCase()
+                    {selectedAnswers.every((answer, index) => 
+                      answer === blankData.blanks[index].correctAnswer
                     ) ? '✓ Correct!' : '✗ Incorrect'}
                   </p>
-                  <p className="text-gray-700">
-                    Correct answer: {blankData.answers.join(', ')}
-                  </p>
+                  {!selectedAnswers.every((answer, index) => 
+                    answer === blankData.blanks[index].correctAnswer
+                  ) && (
+                    <div className="text-gray-700">
+                      <p className="font-bold mb-1">Correct answers:</p>
+                      {blankData.blanks.map((blank, index) => (
+                        <p key={index}>
+                          [{blank.blankNumber}]: {blank.correctAnswer}
+                        </p>
+                      ))}
+                    </div>
+                  )}
                 </motion.div>
               )}
 
               <div className="flex gap-3">
                 {!answered && (
                   <>
-                    <Button onClick={handleEasyModeSubmit} className="flex-1">
+                    <Button 
+                      onClick={handleEasyModeSubmit} 
+                      disabled={selectedAnswers.some(answer => answer === null)}
+                      className="flex-1"
+                    >
                       ✓ Check Answer
                     </Button>
                     <Button onClick={handleShowAnswer} variant="secondary" className="flex-1">
@@ -243,7 +299,7 @@ const LessonQuiz = ({ onNavigate, selectedLesson, selectedMode }) => {
                   </>
                 )}
                 <Button onClick={handleSkip} variant="secondary" className="flex-1">
-                  ⏭️ Skip
+                  ⏭️ {answered ? 'Next' : 'Skip'}
                 </Button>
               </div>
             </div>

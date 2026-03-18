@@ -27,8 +27,24 @@ export const tokenizeRomaji = (romaji) => {
   return tokens
 }
 
-// Generate blanks for Easy Mode
-export const generateBlanks = (romaji, numBlanks = 2) => {
+// Get all unique words from lesson sentences (for distractors)
+export const getAllWordsFromLesson = (sentences) => {
+  const allWords = []
+  sentences.forEach(sentence => {
+    const tokens = tokenizeRomaji(sentence.romaji)
+    tokens.forEach(token => {
+      // Remove punctuation for comparison
+      const cleanToken = token.replace(/[.,!?]/g, '')
+      if (cleanToken.length > 2) {
+        allWords.push(cleanToken)
+      }
+    })
+  })
+  return [...new Set(allWords)] // Remove duplicates
+}
+
+// Generate multiple-choice blanks for Easy Mode
+export const generateMultipleChoiceBlanks = (romaji, allLessonWords, numBlanks = 2) => {
   const tokens = tokenizeRomaji(romaji)
   
   // Filter out very short tokens and punctuation-only tokens
@@ -37,26 +53,47 @@ export const generateBlanks = (romaji, numBlanks = 2) => {
     return cleanToken.length > 2
   })
   
-  if (validTokens.length === 0) return { blankedSentence: romaji, answers: [] }
+  if (validTokens.length === 0) {
+    return { 
+      blankedSentence: romaji, 
+      blanks: [] 
+    }
+  }
   
   // Randomly select tokens to blank
   const numToBlank = Math.min(numBlanks, validTokens.length)
   const shuffled = [...validTokens].sort(() => Math.random() - 0.5)
   const tokensToBlank = shuffled.slice(0, numToBlank)
   
-  // Create blanked sentence
+  // Create blanked sentence and generate choices for each blank
   let blankedSentence = romaji
-  const answers = []
+  const blanks = []
   
-  tokensToBlank.forEach(token => {
+  tokensToBlank.forEach((token, blankIndex) => {
+    const cleanToken = token.replace(/[.,!?]/g, '')
     const index = blankedSentence.indexOf(token)
+    
     if (index !== -1) {
-      blankedSentence = blankedSentence.replace(token, '______')
-      answers.push(token)
+      blankedSentence = blankedSentence.replace(token, `[${blankIndex + 1}]`)
+      
+      // Generate distractors from lesson words
+      const distractors = allLessonWords
+        .filter(word => word !== cleanToken && word.length >= 3)
+        .sort(() => Math.random() - 0.5)
+        .slice(0, 3)
+      
+      // Create choices array with correct answer and distractors
+      const choices = shuffleArray([cleanToken, ...distractors])
+      
+      blanks.push({
+        correctAnswer: cleanToken,
+        choices: choices,
+        blankNumber: blankIndex + 1
+      })
     }
   })
   
-  return { blankedSentence, answers }
+  return { blankedSentence, blanks }
 }
 
 // Shuffle array
