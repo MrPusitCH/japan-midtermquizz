@@ -5,6 +5,9 @@ import QuizGame from './pages/QuizGame'
 import FlashCardGame from './pages/FlashCardGame'
 import RearrangeGame from './pages/RearrangeGame'
 import SentencePracticeGame from './pages/SentencePracticeGame'
+import LessonSelect from './pages/LessonSelect'
+import ModeSelect from './pages/ModeSelect'
+import LessonQuiz from './pages/LessonQuiz'
 import SoundToggle from './components/SoundToggle'
 import LoadingScreen from './components/LoadingScreen'
 import { initBGM } from './utils/sound'
@@ -14,6 +17,8 @@ function App() {
   const [currentPage, setCurrentPage] = useState('home')
   const [selectedWeek, setSelectedWeek] = useState(null)
   const [selectedLevel, setSelectedLevel] = useState(null)
+  const [selectedLesson, setSelectedLesson] = useState(null)
+  const [selectedMode, setSelectedMode] = useState(null)
   const [showMusicPrompt, setShowMusicPrompt] = useState(true)
 
   useEffect(() => {
@@ -63,6 +68,12 @@ function App() {
         return <RearrangeGame onNavigate={navigateTo} />
       case 'sentence':
         return <SentencePracticeGame onNavigate={navigateTo} />
+      case 'lessonSelect':
+        return <LessonSelect onNavigate={navigateTo} onSelectLesson={setSelectedLesson} />
+      case 'modeSelect':
+        return <ModeSelect onNavigate={navigateTo} selectedLesson={selectedLesson} onSelectMode={setSelectedMode} />
+      case 'lessonQuiz':
+        return <LessonQuiz onNavigate={navigateTo} selectedLesson={selectedLesson} selectedMode={selectedMode} />
       default:
         return <Home onNavigate={navigateTo} />
     }

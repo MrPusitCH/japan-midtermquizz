@@ -1,0 +1,426 @@
+{
+  "title": "Japanese Quiz Notes (Lesson 16-26)",
+  "format": "Romaji + Japanese + Thai",
+  "lessons": [
+    {
+      "lesson": 16,
+      "title_jp": "有名な温泉です",
+      "sentences": [
+        {
+          "id": 1,
+          "romaji": "Waa, saru ga ippai!",
+          "jp": "わあ、猿がいっぱい！",
+          "th": "โอโฮ้ ลิงเต็มไปหมด!"
+        },
+        {
+          "id": 2,
+          "romaji": "Takusan shashin o totte iru no ne.",
+          "jp": "たくさん写真を撮っているのね。",
+          "th": "กำลังถ่ายรูปเยอะเลยนะ"
+        },
+        {
+          "id": 3,
+          "romaji": "Hai, koko wa kaigai demo yuumeena onsen desu.",
+          "jp": "はい、ここは海外でも有名な温泉です。",
+          "th": "ที่นี่เป็นออนเซ็นที่มีชื่อเสียงแม้ในต่างประเทศค่ะ"
+        },
+        {
+          "id": 4,
+          "romaji": "Hee, soo nan da.",
+          "jp": "へえ、そうなんだ。",
+          "th": "โอ้ อย่างนั้นเหรอ"
+        },
+        {
+          "id": 5,
+          "romaji": "Saru ga onsen ni hairu no wa mezurashii kara ne.",
+          "jp": "猿が温泉に入るのは珍しいからね。",
+          "th": "เพราะลิงลงแช่ออนเซ็นเป็นของหายาก"
+        },
+        {
+          "id": 6,
+          "romaji": "A, saru no akachan. Kawaii.",
+          "jp": "あ、猿の赤ちゃん。かわいい。",
+          "th": "อ๊ะ ลูกลิง น่ารัก"
+        }
+      ]
+    },
+    {
+      "lesson": 17,
+      "title_jp": "日本を旅行しています",
+      "sentences": [
+        {
+          "id": 1,
+          "romaji": "O-soba mittsu, onegai shimasu.",
+          "jp": "おそば3つ、お願いします。",
+          "th": "ขอโซบะ 3 ที่ค่ะ"
+        },
+        {
+          "id": 2,
+          "romaji": "Haai.",
+          "jp": "はーい。",
+          "th": "ได้ค่ะ"
+        },
+        {
+          "id": 3,
+          "romaji": "Nihon e wa, kankoo desu ka.",
+          "jp": "日本へは、観光ですか。",
+          "th": "มาเที่ยวญี่ปุ่นเหรอคะ"
+        },
+        {
+          "id": 4,
+          "romaji": "Eeto, watashi wa shashinka de, Nihon no koto o kaigai ni shookai shite imasu.",
+          "jp": "ええと、私は写真家で、日本のことを海外に紹介しています。",
+          "th": "เอ่อ ฉันเป็นช่างภาพ และกำลังแนะนำเรื่องของญี่ปุ่นให้ชาวต่างชาติรู้จักค่ะ"
+        },
+        {
+          "id": 5,
+          "romaji": "Sore de, Nihon o ryokoo shite imasu.",
+          "jp": "それで、日本を旅行しています。",
+          "th": "ก็เลยกำลังท่องเที่ยวญี่ปุ่นอยู่ค่ะ"
+        },
+        {
+          "id": 6,
+          "romaji": "Sore wa subarashii ne.",
+          "jp": "それはすばらしいね。",
+          "th": "ยอดเยี่ยมเลยนะ"
+        },
+        {
+          "id": 7,
+          "romaji": "Omatase shimashita.",
+          "jp": "お待たせしました。",
+          "th": "ขอโทษที่ให้รอค่ะ"
+        }
+      ]
+    },
+    {
+      "lesson": 18,
+      "title_jp": "すごく楽しかったです",
+      "sentences": [
+        {
+          "id": 1,
+          "romaji": "Okaerinasai.",
+          "jp": "おかえりなさい。",
+          "th": "ยินดีต้อนรับกลับ"
+        },
+        {
+          "id": 2,
+          "romaji": "Nagano wa doo deshita ka.",
+          "jp": "長野はどうでしたか。",
+          "th": "นากาโนะเป็นยังไงบ้าง"
+        },
+        {
+          "id": 3,
+          "romaji": "Sugoku tanoshikatta desu.",
+          "jp": "すごく楽しかったです。",
+          "th": "สนุกมาก"
+        },
+        {
+          "id": 4,
+          "romaji": "Shashin o takusan torimashita.",
+          "jp": "写真をたくさん撮りました。",
+          "th": "ถ่ายรูปเยอะมาก"
+        },
+        {
+          "id": 5,
+          "romaji": "Sorekara, osoba mo tabemashita.",
+          "jp": "それから、おそばも食べました。",
+          "th": "แล้วก็กินโซบะด้วย"
+        },
+        {
+          "id": 6,
+          "romaji": "Totemo oishikatta desu.",
+          "jp": "とてもおいしかったです。",
+          "th": "อร่อยมาก"
+        },
+        {
+          "id": 7,
+          "romaji": "Soo desu ka. Yokatta desu ne.",
+          "jp": "そうですか。よかったですね。",
+          "th": "อย่างนั้นเหรอ ดีจังเลยนะ"
+        },
+        {
+          "id": 8,
+          "romaji": "Nagano no hito wa totemo shinsetsu deshita.",
+          "jp": "長野の人はとても親切でした。",
+          "th": "คนที่นากาโนะใจดีมาก"
+        },
+        {
+          "id": 9,
+          "romaji": "Tanoshii ryokoo deshita ne.",
+          "jp": "楽しい旅行でしたね。",
+          "th": "เป็นทริปที่สนุกนะ"
+        }
+      ]
+    },
+    {
+      "lesson": 20,
+      "title_jp": "わさびは入れないでください",
+      "sentences": [
+        {
+          "id": 1,
+          "romaji": "Osusume wa nan desu ka.",
+          "jp": "おすすめは何ですか。",
+          "th": "อาหารแนะนำคืออะไร"
+        },
+        {
+          "id": 2,
+          "romaji": "Kono supesharu kaisen-don ga osusume da yo.",
+          "jp": "このスペシャル海鮮丼がおすすめだよ。",
+          "th": "ข้าวหน้าทะเลพิเศษแนะนำเลย"
+        },
+        {
+          "id": 3,
+          "romaji": "Ikura to uni ga tappuri haitteru yo.",
+          "jp": "イクラとウニがたっぷり入ってるよ。",
+          "th": "มีไข่ปลาและอูนิเต็มเลย"
+        },
+        {
+          "id": 4,
+          "romaji": "Jaa, sore kudasai.",
+          "jp": "じゃあ、それください。",
+          "th": "งั้นเอาอันนั้นค่ะ"
+        },
+        {
+          "id": 5,
+          "romaji": "Watashi mo.",
+          "jp": "私も。",
+          "th": "ฉันด้วย"
+        },
+        {
+          "id": 6,
+          "romaji": "A, wasabi wa irenaide kudasai.",
+          "jp": "あ、わさびは入れないでください。",
+          "th": "อ๊ะ กรุณาอย่าใส่วาซาบิค่ะ"
+        },
+        {
+          "id": 7,
+          "romaji": "Wasabi nuki ne. Sochira wa?",
+          "jp": "わさび抜きね。そちらは？",
+          "th": "ไม่ใส่วาซาบินะ แล้วคุณล่ะ"
+        },
+        {
+          "id": 8,
+          "romaji": "Watashi wa wasabi o takusan irete kudasai.",
+          "jp": "私はわさびをたくさん入れてください。",
+          "th": "ของฉันใส่วาซาบิเยอะ ๆ"
+        }
+      ]
+    },
+    {
+      "lesson": 21,
+      "title_jp": "時計台の中にいます",
+      "sentences": [
+        {
+          "id": 1,
+          "romaji": "Moshimoshi, Tamu-san.",
+          "jp": "もしもし、タムさん。",
+          "th": "ฮัลโหล คุณทัม"
+        },
+        {
+          "id": 2,
+          "romaji": "Ima, doko ni iru no?",
+          "jp": "今、どこにいるの？",
+          "th": "ตอนนี้อยู่ที่ไหน"
+        },
+        {
+          "id": 3,
+          "romaji": "Tokeedai no naka ni imasu.",
+          "jp": "時計台の中にいます。",
+          "th": "อยู่ในหอนาฬิกา"
+        },
+        {
+          "id": 4,
+          "romaji": "E, naka?",
+          "jp": "え、中？",
+          "th": "เอ๊ะ ข้างใน?"
+        },
+        {
+          "id": 5,
+          "romaji": "Jaa, boku mo sugu socchi ni iku ne.",
+          "jp": "じゃあ、ぼくもすぐそっちに行くね。",
+          "th": "งั้นฉันจะไปเดี๋ยวนี้"
+        },
+        {
+          "id": 6,
+          "romaji": "Wakarimashita.",
+          "jp": "わかりました。",
+          "th": "เข้าใจแล้ว"
+        },
+        {
+          "id": 7,
+          "romaji": "A, Kaito! Kocchi kocchi!",
+          "jp": "あ、海斗！こっち、こっち！",
+          "th": "ไคโตะ ทางนี้!"
+        },
+        {
+          "id": 8,
+          "romaji": "Gomen, osoku natte.",
+          "jp": "ごめん、遅くなって。",
+          "th": "ขอโทษที่มาสาย"
+        }
+      ]
+    },
+    {
+      "lesson": 23,
+      "title_jp": "私はこの猫が好きです",
+      "sentences": [
+        {
+          "id": 1,
+          "romaji": "Kawaii.",
+          "jp": "かわいい。",
+          "th": "น่ารัก"
+        },
+        {
+          "id": 2,
+          "romaji": "Minna gohan o tabete imasu.",
+          "jp": "みんなごはんを食べています。",
+          "th": "ทุกคนกำลังกินข้าว"
+        },
+        {
+          "id": 3,
+          "romaji": "Hontoo ni kawaii ne.",
+          "jp": "本当にかわいいね。",
+          "th": "น่ารักจริง ๆ"
+        },
+        {
+          "id": 4,
+          "romaji": "Oide, oide!",
+          "jp": "おいで、おいで！",
+          "th": "มานี่ มานี่"
+        },
+        {
+          "id": 5,
+          "romaji": "Watashi wa kono ko ga suki.",
+          "jp": "私はこの子が好き。",
+          "th": "ฉันชอบตัวนี้"
+        },
+        {
+          "id": 6,
+          "romaji": "Watashi wa kono neko ga suki desu.",
+          "jp": "私はこの猫が好きです。",
+          "th": "ฉันชอบแมวตัวนี้"
+        },
+        {
+          "id": 7,
+          "romaji": "Neko kafe tte, rirakkusu dekiru yo ne.",
+          "jp": "猫カフェって、リラックスできるよね。",
+          "th": "คาเฟ่แมวทำให้ผ่อนคลายได้เนอะ"
+        },
+        {
+          "id": 8,
+          "romaji": "Honto desu ne.",
+          "jp": "ほんとですね。",
+          "th": "จริงด้วยนะ"
+        }
+      ]
+    },
+    {
+      "lesson": 24,
+      "title_jp": "生卵は食べられません",
+      "sentences": [
+        {
+          "id": 1,
+          "romaji": "Itadakimasu.",
+          "jp": "いただきます。",
+          "th": "ขอบคุณสำหรับอาหาร"
+        },
+        {
+          "id": 2,
+          "romaji": "Nihonshoku wa kenkoo ni ii n desu yo.",
+          "jp": "日本食は健康にいいんですよ。",
+          "th": "อาหารญี่ปุ่นดีต่อสุขภาพ"
+        },
+        {
+          "id": 3,
+          "romaji": "Kore, nama tamago desu ka.",
+          "jp": "これ、生卵ですか。",
+          "th": "นี่ไข่ดิบเหรอ"
+        },
+        {
+          "id": 4,
+          "romaji": "Hai.",
+          "jp": "はい。",
+          "th": "ค่ะ"
+        },
+        {
+          "id": 5,
+          "romaji": "Sumimasen.",
+          "jp": "すみません。",
+          "th": "ขอโทษ"
+        },
+        {
+          "id": 6,
+          "romaji": "Watashi, nama tamago wa taberaremasen.",
+          "jp": "私、生卵は食べられません。",
+          "th": "ฉันกินไข่ดิบไม่ได้"
+        },
+        {
+          "id": 7,
+          "romaji": "Soo. Jaa, nattoo mo dame?",
+          "jp": "そう。じゃあ、納豆もだめ？",
+          "th": "งั้นนัตโตะก็ไม่ได้เหรอ"
+        },
+        {
+          "id": 8,
+          "romaji": "Nattoo! Daisuki desu.",
+          "jp": "納豆！大好きです。",
+          "th": "นัตโตะ ชอบมาก"
+        }
+      ]
+    },
+    {
+      "lesson": 26,
+      "title_jp": "この卵焼き、甘くておいしいです",
+      "sentences": [
+        {
+          "id": 1,
+          "romaji": "Obentoo da yo.",
+          "jp": "お弁当だよ。",
+          "th": "ข้าวกล่องนะ"
+        },
+        {
+          "id": 2,
+          "romaji": "Boku ga tsukuttan da. Doozo.",
+          "jp": "ぼくが作ったんだ。どうぞ。",
+          "th": "ฉันทำเอง เชิญเลย"
+        },
+        {
+          "id": 3,
+          "romaji": "Kiree!",
+          "jp": "きれい！",
+          "th": "สวย"
+        },
+        {
+          "id": 4,
+          "romaji": "Sugoi! Itadakimasu.",
+          "jp": "すごい！いただきます。",
+          "th": "สุดยอด ขอบคุณสำหรับอาหาร"
+        },
+        {
+          "id": 5,
+          "romaji": "Kono tamago-yaki, amakute oishii desu.",
+          "jp": "この卵焼き、甘くておいしいです。",
+          "th": "ไข่หวานอร่อย"
+        },
+        {
+          "id": 6,
+          "romaji": "Kaito wa hontoo ni ryoori ga joozu da ne.",
+          "jp": "海斗は本当に料理が上手だね。",
+          "th": "ไคโตะทำอาหารเก่งมาก"
+        },
+        {
+          "id": 7,
+          "romaji": "Boku, shefu ni naritai n da.",
+          "jp": "ぼく、シェフになりたいんだ。",
+          "th": "ฉันอยากเป็นเชฟ"
+        },
+        {
+          "id": 8,
+          "romaji": "Ii nee.",
+          "jp": "いいねえ。",
+          "th": "ดีเลย"
+        }
+      ]
+    }
+  ]
+}
