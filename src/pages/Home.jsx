@@ -40,13 +40,6 @@ const Home = ({ onNavigate }) => {
             📚 Lesson Quiz Mode
           </Button>
           <Button 
-            onClick={() => onNavigate('quiz')}
-            variant="secondary"
-            className="w-full text-xl"
-          >
-            📝 Midterm Exam
-          </Button>
-          <Button 
             onClick={() => onNavigate('flashcard')}
             variant="secondary"
             className="w-full text-xl"
@@ -66,6 +59,13 @@ const Home = ({ onNavigate }) => {
             className="w-full text-xl"
           >
             📖 Sentence Practice Mode
+          </Button>
+          <Button 
+            onClick={() => onNavigate('quiz')}
+            variant="secondary"
+            className="w-full text-xl"
+          >
+            📝 Midterm Exam
           </Button>
         </div>
 
