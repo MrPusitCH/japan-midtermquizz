@@ -40,6 +40,13 @@ const Home = ({ onNavigate }) => {
             📚 Lesson Quiz Mode
           </Button>
           <Button 
+            onClick={() => onNavigate('powerpoint')}
+            variant="secondary"
+            className="w-full text-xl"
+          >
+            📊 PowerPoint Materials
+          </Button>
+          <Button 
             onClick={() => onNavigate('flashcard')}
             variant="secondary"
             className="w-full text-xl"

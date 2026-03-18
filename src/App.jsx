@@ -8,6 +8,7 @@ import SentencePracticeGame from './pages/SentencePracticeGame'
 import LessonSelect from './pages/LessonSelect'
 import ModeSelect from './pages/ModeSelect'
 import LessonQuiz from './pages/LessonQuiz'
+import PowerPointViewer from './pages/PowerPointViewer'
 import SoundToggle from './components/SoundToggle'
 import LoadingScreen from './components/LoadingScreen'
 import { initBGM } from './utils/sound'
@@ -74,6 +75,8 @@ function App() {
         return <ModeSelect onNavigate={navigateTo} selectedLesson={selectedLesson} onSelectMode={setSelectedMode} />
       case 'lessonQuiz':
         return <LessonQuiz onNavigate={navigateTo} selectedLesson={selectedLesson} selectedMode={selectedMode} />
+      case 'powerpoint':
+        return <PowerPointViewer onNavigate={navigateTo} />
       default:
         return <Home onNavigate={navigateTo} />
     }
