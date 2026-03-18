@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import Card from '../components/Card'
 import Button from '../components/Button'
 import ProgressBar from '../components/ProgressBar'
-import { generateMultipleChoiceBlanks, getAllWordsFromLesson, tokenizeRomaji, shuffleArray } from '../utils/lessonParser'
+import { generateMultipleChoiceBlanks, getAllWordsFromLessonWithMeanings, tokenizeRomajiWithMeanings, shuffleArray } from '../utils/lessonParser'
 import { playSound } from '../utils/sound'
 import { animateCorrectAnswer, animateWrongAnswer } from '../utils/anime-effects'
 
@@ -12,6 +12,7 @@ const LessonQuiz = ({ onNavigate, selectedLesson, selectedMode }) => {
   const [score, setScore] = useState(0)
   const [showResult, setShowResult] = useState(false)
   const [answered, setAnswered] = useState(false)
+  const [showHints, setShowHints] = useState(true)
   
   // Easy mode states
   const [selectedAnswers, setSelectedAnswers] = useState([])
@@ -27,7 +28,7 @@ const LessonQuiz = ({ onNavigate, selectedLesson, selectedMode }) => {
 
   useEffect(() => {
     if (selectedLesson && selectedMode === 'easy') {
-      const words = getAllWordsFromLesson(selectedLesson.sentences)
+      const words = getAllWordsFromLessonWithMeanings(selectedLesson.sentences)
       setAllLessonWords(words)
     }
   }, [selectedLesson, selectedMode])
@@ -39,7 +40,7 @@ const LessonQuiz = ({ onNavigate, selectedLesson, selectedMode }) => {
         setBlankData(data)
         setSelectedAnswers(new Array(data.blanks.length).fill(null))
       } else {
-        const tokens = tokenizeRomaji(currentSentence.romaji)
+        const tokens = tokenizeRomajiWithMeanings(currentSentence.romaji)
         setAvailableTokens(shuffleArray(tokens))
         setSelectedTokens([])
       }
@@ -67,22 +68,22 @@ const LessonQuiz = ({ onNavigate, selectedLesson, selectedMode }) => {
   const handleSelectAnswer = (blankIndex, choice) => {
     if (answered) return
     const newAnswers = [...selectedAnswers]
-    newAnswers[blankIndex] = choice
+    newAnswers[blankIndex] = choice.word
     setSelectedAnswers(newAnswers)
   }
 
   const getChoiceStyle = (blankIndex, choice) => {
     if (!answered) {
-      return selectedAnswers[blankIndex] === choice
+      return selectedAnswers[blankIndex] === choice.word
         ? 'bg-purple-200 border-purple-500 border-4'
         : 'bg-white hover:bg-purple-50 border-purple-300'
     }
 
     const blank = blankData.blanks[blankIndex]
-    if (choice === blank.correctAnswer) {
+    if (choice.word === blank.correctAnswer) {
       return 'bg-green-200 border-green-500'
     }
-    if (selectedAnswers[blankIndex] === choice && choice !== blank.correctAnswer) {
+    if (selectedAnswers[blankIndex] === choice.word && choice.word !== blank.correctAnswer) {
       return 'bg-red-200 border-red-500'
     }
     return 'bg-gray-100 border-gray-300'
@@ -92,7 +93,7 @@ const LessonQuiz = ({ onNavigate, selectedLesson, selectedMode }) => {
     if (answered) return
     if (selectedTokens.length !== availableTokens.length + selectedTokens.length) return
 
-    const userSentence = selectedTokens.join(' ')
+    const userSentence = selectedTokens.map(t => t.word).join(' ')
     const correctSentence = currentSentence.romaji
 
     const isCorrect = userSentence === correctSentence
@@ -121,15 +122,15 @@ const LessonQuiz = ({ onNavigate, selectedLesson, selectedMode }) => {
     
     if (fromAvailable) {
       setSelectedTokens([...selectedTokens, token])
-      setAvailableTokens(availableTokens.filter(t => t !== token))
+      setAvailableTokens(availableTokens.filter(t => t.word !== token.word))
     } else {
       setAvailableTokens([...availableTokens, token])
-      setSelectedTokens(selectedTokens.filter(t => t !== token))
+      setSelectedTokens(selectedTokens.filter(t => t.word !== token.word))
     }
   }
 
   const handleReset = () => {
-    const tokens = tokenizeRomaji(currentSentence.romaji)
+    const tokens = tokenizeRomajiWithMeanings(currentSentence.romaji)
     setAvailableTokens(shuffleArray(tokens))
     setSelectedTokens([])
   }
@@ -139,7 +140,7 @@ const LessonQuiz = ({ onNavigate, selectedLesson, selectedMode }) => {
       const correctAnswers = blankData.blanks.map(blank => blank.correctAnswer)
       setSelectedAnswers(correctAnswers)
     } else {
-      const tokens = tokenizeRomaji(currentSentence.romaji)
+      const tokens = tokenizeRomajiWithMeanings(currentSentence.romaji)
       setSelectedTokens(tokens)
       setAvailableTokens([])
     }
@@ -220,6 +221,17 @@ const LessonQuiz = ({ onNavigate, selectedLesson, selectedMode }) => {
 
           {selectedMode === 'easy' ? (
             <div className="space-y-6">
+              <div className="flex justify-between items-center mb-2">
+                <div></div>
+                <Button 
+                  onClick={() => setShowHints(!showHints)} 
+                  variant="secondary" 
+                  size="sm"
+                >
+                  {showHints ? '🙈 Hide Hints' : '👁️ Show Hints'}
+                </Button>
+              </div>
+              
               <div className="bg-white p-6 rounded-xl border-3 border-purple-300">
                 <p className="text-2xl font-mono text-gray-800 mb-6 whitespace-pre-wrap leading-relaxed">
                   {blankData?.blankedSentence}
@@ -240,12 +252,15 @@ const LessonQuiz = ({ onNavigate, selectedLesson, selectedMode }) => {
                           onClick={() => handleSelectAnswer(blankIndex, choice)}
                           disabled={answered}
                           className={`
-                            p-4 rounded-xl border-3 transition-all font-mono text-lg
+                            p-4 rounded-xl border-3 transition-all text-left
                             ${getChoiceStyle(blankIndex, choice)}
                             ${!answered ? 'cursor-pointer' : 'cursor-not-allowed'}
                           `}
                         >
-                          {choice}
+                          <div className="font-mono text-lg font-bold">{choice.word}</div>
+                          {showHints && choice.meaning_th && (
+                            <div className="text-sm text-gray-600 mt-1">({choice.meaning_th})</div>
+                          )}
                         </motion.button>
                       ))}
                     </div>
@@ -309,8 +324,17 @@ const LessonQuiz = ({ onNavigate, selectedLesson, selectedMode }) => {
             </div>
           ) : (
             <div className="space-y-4">
+              <div className="flex justify-between items-center mb-4">
+                <p className="text-sm text-gray-600">Your Answer:</p>
+                <Button 
+                  onClick={() => setShowHints(!showHints)} 
+                  variant="secondary" 
+                  size="sm"
+                >
+                  {showHints ? '🙈 Hide Hints' : '👁️ Show Hints'}
+                </Button>
+              </div>
               <div className="bg-purple-50 p-4 rounded-xl border-2 border-purple-300 min-h-[100px]">
-                <p className="text-sm text-gray-600 mb-2">Your Answer:</p>
                 <div className="flex flex-wrap gap-2">
                   {selectedTokens.map((token, index) => (
                     <motion.button
@@ -319,9 +343,12 @@ const LessonQuiz = ({ onNavigate, selectedLesson, selectedMode }) => {
                       animate={{ scale: 1 }}
                       onClick={() => handleTokenClick(token, false)}
                       disabled={answered}
-                      className="px-3 py-2 bg-purple-500 text-white rounded-lg font-mono hover:bg-purple-600 disabled:opacity-50"
+                      className="px-3 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 disabled:opacity-50 text-left"
                     >
-                      {token}
+                      <div className="font-mono font-bold">{token.word}</div>
+                      {showHints && token.meaning_th && (
+                        <div className="text-xs opacity-90">({token.meaning_th})</div>
+                      )}
                     </motion.button>
                   ))}
                 </div>
@@ -337,9 +364,12 @@ const LessonQuiz = ({ onNavigate, selectedLesson, selectedMode }) => {
                       whileTap={{ scale: 0.95 }}
                       onClick={() => handleTokenClick(token, true)}
                       disabled={answered}
-                      className="px-3 py-2 bg-white border-2 border-gray-300 rounded-lg font-mono hover:border-purple-400 disabled:opacity-50"
+                      className="px-3 py-2 bg-white border-2 border-gray-300 rounded-lg hover:border-purple-400 disabled:opacity-50 text-left"
                     >
-                      {token}
+                      <div className="font-mono font-bold">{token.word}</div>
+                      {showHints && token.meaning_th && (
+                        <div className="text-xs text-gray-600">({token.meaning_th})</div>
+                      )}
                     </motion.button>
                   ))}
                 </div>
@@ -350,13 +380,13 @@ const LessonQuiz = ({ onNavigate, selectedLesson, selectedMode }) => {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   className={`p-4 rounded-xl ${
-                    selectedTokens.join(' ') === currentSentence.romaji
+                    selectedTokens.map(t => t.word).join(' ') === currentSentence.romaji
                       ? 'bg-green-100 border-2 border-green-500'
                       : 'bg-red-100 border-2 border-red-500'
                   }`}
                 >
                   <p className="font-bold text-lg mb-2">
-                    {selectedTokens.join(' ') === currentSentence.romaji ? '✓ Correct!' : '✗ Incorrect'}
+                    {selectedTokens.map(t => t.word).join(' ') === currentSentence.romaji ? '✓ Correct!' : '✗ Incorrect'}
                   </p>
                   <p className="text-gray-700 font-mono">
                     Correct: {currentSentence.romaji}
