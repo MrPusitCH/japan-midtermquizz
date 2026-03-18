@@ -52,7 +52,7 @@ const ModeSelect = ({ onNavigate, selectedLesson, onSelectMode }) => {
           </div>
 
           <Button onClick={() => onNavigate('lessonSelect')} variant="secondary" className="w-full">
-            ← เปลี่ยนบทเรียน
+            ← Back to Lesson Selection
           </Button>
         </motion.div>
       </Card>

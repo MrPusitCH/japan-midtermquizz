@@ -49,7 +49,7 @@ const LessonSelect = ({ onNavigate, onSelectLesson }) => {
           </div>
 
           <Button onClick={() => onNavigate('home')} variant="secondary" className="w-full">
-            ← กลับหน้าหลัก
+            ← Back to Home
           </Button>
         </motion.div>
       </Card>

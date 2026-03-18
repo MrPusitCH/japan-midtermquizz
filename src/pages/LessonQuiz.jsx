@@ -302,6 +302,10 @@ const LessonQuiz = ({ onNavigate, selectedLesson, selectedMode }) => {
                   ⏭️ {answered ? 'Next' : 'Skip'}
                 </Button>
               </div>
+              
+              <Button onClick={() => onNavigate('modeSelect')} variant="secondary" className="w-full mt-4">
+                ← Back to Mode Selection
+              </Button>
             </div>
           ) : (
             <div className="space-y-4">
@@ -375,9 +379,13 @@ const LessonQuiz = ({ onNavigate, selectedLesson, selectedMode }) => {
                   </>
                 )}
                 <Button onClick={handleSkip} variant="secondary" className="flex-1">
-                  ⏭️ Skip
+                  ⏭️ {answered ? 'Next' : 'Skip'}
                 </Button>
               </div>
+              
+              <Button onClick={() => onNavigate('modeSelect')} variant="secondary" className="w-full mt-4">
+                ← Back to Mode Selection
+              </Button>
             </div>
           )}
         </motion.div>
