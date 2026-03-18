@@ -39,13 +39,13 @@ const Home = ({ onNavigate }) => {
           >
             📚 Lesson Quiz Mode
           </Button>
-          <Button 
+          {/* <Button 
             onClick={() => onNavigate('quiz')}
             variant="secondary"
             className="w-full text-xl"
           >
             📝 Week Quiz Mode
-          </Button>
+          </Button> */}
           <Button 
             onClick={() => onNavigate('flashcard')}
             variant="secondary"
